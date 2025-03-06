@@ -1,0 +1,6 @@
+<h2>Eliminar tarea</h2>
+<form method="post">
+    {% csrf_token %}
+    <p>¿Estás seguro de que deseas eliminar la tarea "{{ task.title }}"?</p>
+    <button type="submit">Eliminar</button>
+</form>
