@@ -1,0 +1,51 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Tarea</title>
+    <!-- Vincula el archivo CSS de SB Admin 2 -->
+    <link rel="stylesheet" href="{% static 'css/sb-admin-2.min.css' %}">
+    <!-- Vincula FontAwesome -->
+    <link rel="stylesheet" href="{% static 'vendor/fontawesome-free/css/all.min.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h2 class="m-0 font-weight-bold text-primary">Formulario de Tarea</h2>
+            </div>
+            <div class="card-body">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        {{ form.as_p }}  <!-- Muestra todos los campos del formulario -->
+                    </div>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Guardar
+                    </button>
+                    <a href="{% url 'task_list' %}" class="btn btn-secondary" onclick="confirmExit()">
+                        <i class="fas fa-arrow-left"></i> Volver
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vincula jQuery -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <!-- Vincula Bootstrap JS -->
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- Vincula el archivo JS de SB Admin 2 -->
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+    <!-- Script para confirmar salida -->
+    <script>
+        function confirmExit() {
+            if (confirm('¿Estás seguro de que deseas salir sin guardar los cambios?')) {
+                window.location.href = "{% url 'task_list' %}";
+            }
+        }
+    </script>
+</body>
+</html>

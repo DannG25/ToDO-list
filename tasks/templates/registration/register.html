@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro</title>
+    <!-- Vincula el archivo CSS de SB Admin 2 -->
+    <link rel="stylesheet" href="{% static 'css/sb-admin-2.min.css' %}">
+    <!-- Vincula FontAwesome -->
+    <link rel="stylesheet" href="{% static 'vendor/fontawesome-free/css/all.min.css' %}">
+</head>
+<body class="bg-gradient-primary">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <div class="p-5">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">Create una cuenta</h1>
+                            </div>
+                            <form method="post" class="user">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    {{ form.username.label_tag }}
+                                    {{ form.username }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.password1.label_tag }}
+                                    {{ form.password1 }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.password2.label_tag }}
+                                    {{ form.password2 }}
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-user btn-block">
+                                    Registrarme
+                                </button>
+                            </form>
+                            <hr>
+                            <a href="{% url 'task_list' %}" class="small" onclick="confirmExit()">
+                                <i class="fas fa-arrow-left"></i> Volver
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vincula jQuery -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <!-- Vincula Bootstrap JS -->
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- Vincula el archivo JS de SB Admin 2 -->
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+</body>
+</html>

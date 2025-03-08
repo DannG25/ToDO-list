@@ -1,0 +1,41 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Eliminar Tarea</title>
+    <!-- Vincula el archivo CSS de SB Admin 2 -->
+    <link rel="stylesheet" href="{% static 'css/sb-admin-2.min.css' %}">
+    <!-- Vincula FontAwesome -->
+    <link rel="stylesheet" href="{% static 'vendor/fontawesome-free/css/all.min.css' %}">
+</head>
+<body>
+    <div class="container">
+        <div class="card shadow mb-4">
+            <div class="card-header py-3">
+                <h2 class="m-0 font-weight-bold text-danger">¿Estás seguro de que deseas eliminar esta tarea?</h2>
+            </div>
+            <div class="card-body">
+                <p><strong>{{ task.title }}</strong></p>
+                <form method="post">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger">
+                        <i class="fas fa-trash"></i> Eliminar
+                    </button>
+                    <a href="{% url 'task_list' %}" class="btn btn-secondary">
+                        <i class="fas fa-times"></i> Cancelar
+                    </a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vincula jQuery -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <!-- Vincula Bootstrap JS -->
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- Vincula el archivo JS de SB Admin 2 -->
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+</body>
+</html>
