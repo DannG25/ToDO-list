@@ -10,6 +10,6 @@ class Task(models.Model):
     fecha_vencimiento = models.DateField(
         default=timezone.now)  # Valor predeterminado
     archivo = models.FileField(upload_to='archivos/', blank=True, null=True)
-
+#asasasd
     def __str__(self):
         return str(self.title)
