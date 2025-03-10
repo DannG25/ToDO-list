@@ -1,10 +1,3 @@
-Necesito crear un CRUD en un proyecto de Django con SQLite en el que realice un log in, si el usuario esta registrado, si no esta registrado pueda pasar a un formulario de registro luego de estos permisos necesito crear un modulo donde pueda asignar al usuario tareas con un titulo, descripción, tiempo de inicio y final que se puedan asignar en una lista
-
-
-se crea un proyecto de Django y luego se crea la app en Python para tener todos los archivos necesarios para armar el aplicativo
-
-En el archivo models.py se definen los modelos que necesito para mi CRUD que en este caso es la gestión de tareas
-
 
 Novedades y necesidades del código
 
