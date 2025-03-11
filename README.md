@@ -113,49 +113,39 @@ _http://127.0.0.1:8000/_
 
 # Estructura del Proyecto
 
-gestor-tareas/
-
-├── manage.py
-
-├── tasks/
-
-│   ├── migrations/
-
-│   ├── templates/
-
-│   │   ├── registration/
-
+gestor-tareas/                  # Carpeta raíz del proyecto
+├── manage.py                   # Script para administrar el proyecto
+├── db.sqlite3                  # Base de datos SQLite (en desarrollo)
+├── requirements.txt            # Dependencias del proyecto
+├── venv/                       # Entorno virtual (opcional)
+├── tasks/                      # Aplicación principal (gestión de tareas)
+│   ├── migrations/             # Migraciones de la base de datos
+│   ├── templates/              # Plantillas HTML
+│   │   ├── registration/       # Plantillas de autenticación
 │   │   │   ├── login.html
-
 │   │   │   ├── register.html
-
-│   │   ├── tasks/
-
+│   │   ├── tasks/              # Plantillas de la aplicación
 │   │   │   ├── task_list.html
-
 │   │   │   ├── task_form.html
-
 │   │   │   ├── task_delete.html
-
-│   ├── models.py
-
-│   ├── views.py
-
-│   ├── forms.py
-
-│   ├── urls.py
-
-├── static/
-
-│   ├── css/
-
-│   ├── js/
-
-│   ├── vendor/
-
-├── requirements.txt
-
-├── README.md
+│   ├── static/                 # Archivos estáticos (CSS, JS, imágenes)
+│   │   ├── css/
+│   │   ├── js/
+│   │   ├── vendor/             # Librerías de terceros (Bootstrap, FontAwesome)
+│   ├── __init__.py
+│   ├── admin.py                # Configuración del panel de administración
+│   ├── apps.py                 # Configuración de la aplicación
+│   ├── forms.py                # Formularios personalizados
+│   ├── models.py               # Modelos de la base de datos
+│   ├── views.py                # Vistas de la aplicación
+│   ├── urls.py                 # URLs de la aplicación
+│   ├── tests.py                # Pruebas unitarias
+├── gestor_tareas/              # Configuración del proyecto
+│   ├── __init__.py
+│   ├── asgi.py                 # Configuración ASGI (para servidores asíncronos)
+│   ├── settings.py             # Configuración del proyecto
+│   ├── urls.py                 # URLs globales del proyecto
+│   ├── wsgi.py                 # Configuración WSGI (para servidores tradicionales)
 
 # Contacto
 Si tienes alguna pregunta o sugerencia, no dudes en contactarme:
