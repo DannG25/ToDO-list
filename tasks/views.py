@@ -27,7 +27,7 @@ def register(request):
             form.save()
             messages.success(
                 request, '¡Registro exitoso! Por favor inicia sesión.')
-            return redirect('login')  # Redirigir al login
+            return redirect('login')
     else:
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
@@ -61,9 +61,10 @@ def task_list(request):
     tasks = Task.objects.filter(user=request.user)
     tareas_pendientes = tasks.filter(resuelto=False)
     tareas_resueltas = tasks.filter(resuelto=True)
+
     return render(request, 'tasks/task_list.html', {
         'tareas_pendientes': tareas_pendientes,
-        'tareas_resueltas': tareas_resueltas
+        'tareas_resueltas': tareas_resueltas,
     })
 
 
@@ -165,12 +166,17 @@ def send_email(request):
         return render(request, 'email_error.html', {'error': str(e)})
 
 
+@login_required
 def check_resolve(request, pk):
     """
     Marca una tarea como resuelta.
+
+    Args:
+        request (HttpRequest): La solicitud HTTP.
+        pk (int): El ID de la tarea que se marcará como resuelta.
     """
     task = get_object_or_404(Task, pk=pk, user=request.user)
-    task.resuelta = True  # Marca la tarea como resuelta
+    task.resuelto = True  # Marcar la tarea como resuelta
     task.save()
-    messages.success(request, f'La tarea "{task.title}" ha sido marcada como resuelta.')
-    return redirect('task_list')  # Redirige a la lista de tareas
+    messages.success(request, 'Tarea marcada como resuelta.')
+    return redirect('task_list')

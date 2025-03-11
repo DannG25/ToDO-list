@@ -10,7 +10,7 @@ class Task(models.Model):
     fecha_asignacion = models.DateTimeField(default=timezone.now)
     fecha_vencimiento = models.DateField(default=timezone.now)  # Valor predeterminado
     archivo = models.FileField(upload_to='archivos/', blank=True, null=True)
-    resuelto = models.BooleanField(default=False)  # Nuevo campo
+    resuelto = models.BooleanField(default=False)
 
     def __str__(self):
         return str(self.title)

@@ -1,4 +1,6 @@
 {% load static %}
+{% load widget_tweaks %}  <!-- Carga django-widget-tweaks -->
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -21,10 +23,32 @@
                 </a>
             </div>
             <div class="card-body">
-                <form method="post">    
+                <form method="post" enctype="multipart/form-data">    
                     {% csrf_token %}
                     <div class="form-group">
-                        {{ form.as_p }}  <!-- Muestra todos los campos del formulario -->
+                        <!-- Título -->
+                        <label for="{{ form.title.id_for_label }}">Título</label>
+                        {{ form.title|add_class:"form-control form-control-user" }}
+                    </div>
+                    <div class="form-group">
+                        <!-- Descripción -->
+                        <label for="{{ form.nota.id_for_label }}">Descripción</label>
+                        {{ form.nota|add_class:"form-control form-control-user" }}
+                    </div>
+                    <div class="form-group">
+                        <!-- Fecha de asignación -->
+                        <label for="{{ form.fecha_asignacion.id_for_label }}">Fecha de asignación</label>
+                        {{ form.fecha_asignacion|add_class:"form-control form-control-user" }}
+                    </div>
+                    <div class="form-group">
+                        <!-- Fecha de vencimiento -->
+                        <label for="{{ form.fecha_vencimiento.id_for_label }}">Fecha de vencimiento</label>
+                        {{ form.fecha_vencimiento|add_class:"form-control form-control-user" }}
+                    </div>
+                    <div class="form-group">
+                        <!-- Archivo adjunto -->
+                        <label for="{{ form.archivo.id_for_label }}">Archivo adjunto</label>
+                        {{ form.archivo|add_class:"form-control-file" }}
                     </div>
                     <!-- Botón de Guardar centrado -->
                     <div class="d-flex justify-content-center">
@@ -51,4 +75,4 @@
         }
     </script>
 </body>
-</html> 
+</html>
