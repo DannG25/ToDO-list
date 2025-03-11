@@ -149,7 +149,7 @@ gestor-tareas/                     **Carpeta raíz del proyecto**
 
 │   │   ├── js/
 
-│   │   ├── vendor/                **Librerías de terceros (Bootstrap, FontAwesome)**
+│   │   ├── vendor/               -----------------> **Librerías de terceros (Bootstrap, FontAwesome)**
 
 │   ├── __init__.py
 │   ├── admin.py                **Configuración del panel de administración**
