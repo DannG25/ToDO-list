@@ -86,7 +86,10 @@ Formulario de Creación de Tareas
 **Crea un entorno virtual:**
 
 * python -m venv venv
-* source venv/bin/activate  # En Windows: venv\Scripts\activate
+  
+* source venv/bin/activate
+  
+* En Windows: venv\Scripts\activate
   
 **Instala las dependencias:**
 
