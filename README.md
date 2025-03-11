@@ -113,27 +113,27 @@ _http://127.0.0.1:8000/_
 
 # Estructura del Proyecto
 
-gestor-tareas/                  # Carpeta raíz del proyecto
+gestor-tareas/                     # Carpeta raíz del proyecto
 
-├── manage.py                   # Script para administrar el proyecto
+├── manage.py                     # Script para administrar el proyecto
 
-├── db.sqlite3                  # Base de datos SQLite (en desarrollo)
+├── db.sqlite3                     # Base de datos SQLite (en desarrollo)
 
-├── requirements.txt            # Dependencias del proyecto
+├── requirements.txt               # Dependencias del proyecto
 
-├── venv/                       # Entorno virtual (opcional)
+├── venv/                          # Entorno virtual (opcional)
 
-├── tasks/                      # Aplicación principal (gestión de tareas)
+├── tasks/                         # Aplicación principal (gestión de tareas)
 
-│   ├── migrations/             # Migraciones de la base de datos
+│   ├── migrations/                # Migraciones de la base de datos
 
-│   ├── templates/              # Plantillas HTML
+│   ├── templates/                 # Plantillas HTML
 
-│   │   ├── registration/       # Plantillas de autenticación
+│   │   ├── registration/          # Plantillas de autenticación
 
 │   │   │   ├── login.html
 │   │   │   ├── register.html
-│   │   ├── tasks/              # Plantillas de la aplicación
+│   │   ├── tasks/                 # Plantillas de la aplicación
 
 │   │   │   ├── task_list.html
 
@@ -141,13 +141,13 @@ gestor-tareas/                  # Carpeta raíz del proyecto
 
 │   │   │   ├── task_delete.html
 
-│   ├── static/                 # Archivos estáticos (CSS, JS, imágenes)
+│   ├── static/                     # Archivos estáticos (CSS, JS, imágenes)
 
 │   │   ├── css/
 
 │   │   ├── js/
 
-│   │   ├── vendor/             # Librerías de terceros (Bootstrap, FontAwesome)
+│   │   ├── vendor/                # Librerías de terceros (Bootstrap, FontAwesome)
 
 │   ├── __init__.py
 │   ├── admin.py                # Configuración del panel de administración
