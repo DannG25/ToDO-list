@@ -178,7 +178,20 @@ gestor-tareas/                     -----------------> **Carpeta raíz del proyec
 │   ├── wsgi.py                 -----------------> **Configuración WSGI (para servidores tradicionales)**
 
 
+# Explicacion de cada archivo y carpeta
+
+**manage.py:** Administra el proyecto.
+
+**tasks/:** Aplicación principal con modelos, vistas, formularios y plantillas.
+
+**gestor_tareas/:** Configuración global del proyecto.
+
+**tatic/ y templates/:** Archivos estáticos y plantillas HTML.
+
+**requirements.txt:** Dependencias del proyecto.
+
 # Contacto
+
 **Si tienes alguna pregunta o sugerencia, no dudes en contactarme:**
 
 Email: [danielga252009@hotmail.com]
