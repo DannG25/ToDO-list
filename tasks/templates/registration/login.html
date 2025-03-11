@@ -1,10 +1,11 @@
 {% load static %}
+{% load widget_tweaks %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Iniciar sesión</title>
+    <title>ToDo - log in</title>
     <!-- Vincula el archivo CSS de SB Admin 2 -->
     <link rel="stylesheet" href="{% static 'css/sb-admin-2.min.css' %}">
     <!-- Vincula FontAwesome -->
@@ -24,19 +25,22 @@
                                 {% csrf_token %}
                                 <div class="form-group">
                                     {{ form.username.label_tag }}
-                                    {{ form.username }}
+                                    {{ form.username|add_class:"form-control form-control-user" }}
                                 </div>
                                 <div class="form-group">
                                     {{ form.password.label_tag }}
-                                    {{ form.password }}
+                                    {{ form.password|add_class:"form-control form-control-user" }}
                                 </div>
-                                <button type="submit" class="btn btn-primary btn-user btn-block">
-                                    Iniciar sesión
-                                </button>
+                                <!-- Contenedor flexible para centrar el botón -->
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-primary btn-user w-50">
+                                        Iniciar sesión
+                                    </button>
+                                </div>
                             </form>
                             <hr>
                             <div class="text-center">
-                                <a class="small" href="{% url 'register' %}">Olvide mi contraseña</a>
+                                <a href="{% url 'password_reset' %}" class="small">¿Olvidaste tu contraseña?</a>
                             <div>
                              <a class="small" href="{% url 'register' %}">¿No tienes una cuenta? Regístrate</a>
                             </div>

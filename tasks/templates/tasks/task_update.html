@@ -13,21 +13,25 @@
 <body>
     <div class="container">
         <div class="card shadow mb-4">
-            <div class="card-header py-3">
+            <div class="card-header py-3 d-flex justify-content-between align-items-center">
                 <h2 class="m-0 font-weight-bold text-primary">Editar Tarea</h2>
+                <!-- Botón de Volver a la derecha -->
+                <a href="{% url 'task_list' %}" class="btn btn-secondary">
+                    <i class="fas fa-arrow-left"></i> Volver
+                </a>
             </div>
             <div class="card-body">
-                <form method="post">
+                <form method="post">    
                     {% csrf_token %}
                     <div class="form-group">
                         {{ form.as_p }}  <!-- Muestra todos los campos del formulario -->
                     </div>
-                    <button type="submit" class="btn btn-primary">
-                        <i class="fas fa-save"></i> Guardar
-                    </button>
-                    <a href="{% url 'task_list' %}" class="btn btn-secondary">
-                        <i class="fas fa-arrow-left"></i> Volver
-                    </a>
+                    <!-- Botón de Guardar centrado -->
+                    <div class="d-flex justify-content-center">
+                        <button type="submit" class="btn btn-primary">
+                            <i class="fas fa-save"></i> Guardar
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>
@@ -39,5 +43,12 @@
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <!-- Vincula el archivo JS de SB Admin 2 -->
     <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+    <script>
+        function confirmExit() {
+            if (confirm('¿Estás seguro de que deseas salir sin guardar los cambios?')) {
+                window.location.href = "{% url 'task_list' %}";
+            }
+        }
+    </script>
 </body>
-</html>
+</html> 

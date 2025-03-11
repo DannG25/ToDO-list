@@ -1,13 +1,11 @@
-{% load static %}
+{% load static widget_tweaks %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Formulario de Tarea</title>
-    <!-- Vincula el archivo CSS de SB Admin 2 -->
     <link rel="stylesheet" href="{% static 'css/sb-admin-2.min.css' %}">
-    <!-- Vincula FontAwesome -->
     <link rel="stylesheet" href="{% static 'vendor/fontawesome-free/css/all.min.css' %}">
 </head>
 <body>
@@ -19,9 +17,27 @@
             <div class="card-body">
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
+                    <!-- Campo: Título -->
                     <div class="form-group">
-                        {{ form.as_p }}  <!-- Muestra todos los campos del formulario -->
+                        <label for="{{ form.title.id_for_label }}">Título</label>
+                        {{ form.title|add_class:"form-control" }}
                     </div>
+                    <!-- Campo: Nota -->
+                    <div class="form-group">
+                        <label for="{{ form.nota.id_for_label }}">Nota</label>
+                        {{ form.nota|add_class:"form-control" }}
+                    </div>
+                    <!-- Campo: Fecha de vencimiento -->
+                    <div class="form-group">
+                        <label for="{{ form.fecha_vencimiento.id_for_label }}">Fecha de vencimiento</label>
+                        {{ form.fecha_vencimiento|add_class:"form-control" }}
+                    </div>
+                    <!-- Campo: Archivo -->
+                    <div class="form-group">
+                        <label for="{{ form.archivo.id_for_label }}">Archivo</label>
+                        {{ form.archivo|add_class:"form-control-file" }}
+                    </div>
+                    <!-- Botones -->
                     <button type="submit" class="btn btn-primary">
                         <i class="fas fa-save"></i> Guardar
                     </button>
@@ -33,13 +49,9 @@
         </div>
     </div>
 
-    <!-- Vincula jQuery -->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
-    <!-- Vincula Bootstrap JS -->
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-    <!-- Vincula el archivo JS de SB Admin 2 -->
     <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
-    <!-- Script para confirmar salida -->
     <script>
         function confirmExit() {
             if (confirm('¿Estás seguro de que deseas salir sin guardar los cambios?')) {

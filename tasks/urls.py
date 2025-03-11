@@ -11,6 +11,7 @@ urlpatterns = [
     path('tasks/create/', views.task_create, name='task_create'),
     path('tasks/update/<int:pk>/', views.task_update, name='task_update'),
     path('tasks/delete/<int:pk>/', views.task_delete, name='task_delete'),
+    path('check_resolve/<int:pk>/', views.check_resolve, name='check_resolve'),
 
     path('', RedirectView.as_view(url='login/')),
 ]

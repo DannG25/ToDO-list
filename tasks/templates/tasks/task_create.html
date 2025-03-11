@@ -1,7 +1,69 @@
-<h2>Crear Tarea</h2>
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Guardar</button>
-</form>
-<button href="{% url 'lista_tareas' %}">Volver</button>
+{% load static %}
+{% load widget_tweaks %}
+
+<!DOCTYPE html>
+<html lang="es">
+<!-- <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Tarea</title>
+    <!-- Vincula el archivo CSS de SB Admin 2 -->
+    <link rel="stylesheet" href="{% static 'css/sb-admin-2.min.css' %}">
+    <!-- Vincula FontAwesome -->
+    <link rel="stylesheet" href="{% static 'vendor/fontawesome-free/css/all.min.css' %}">
+</head>
+<body class="bg-gradient-primary">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card o-hidden border-0 shadow-lg my-5">
+                    <div class="card-body p-0">
+                        <div class="p-5">
+                            <h2 class="h4 text-gray-900 mb-4">Crear Tarea</h2>
+                            <form method="post" class="user">
+                                {% csrf_token %}
+                                <div class="form-group">
+                                    {{ form.title.label_tag }}
+                                    {{ form.title|add_class:"form-control form-control-user" }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.description.label_tag }}
+                                    {{ form.description|add_class:"form-control form-control-user" }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.due_date.label_tag }}
+                                    {{ form.due_date|add_class:"form-control form-control-user" }}
+                                </div>
+                                <div class="form-group">
+                                    {{ form.priority.label_tag }}
+                                    {{ form.priority|add_class:"form-control form-control-user" }}
+                                </div>
+                                <!-- Botón de Guardar centrado -->
+                                <div class="d-flex justify-content-center">
+                                    <button type="submit" class="btn btn-primary btn-user">
+                                        Guardar
+                                    </button>
+                                </div>
+                            </form>
+                            <hr>
+                            <!-- Botón de Volver a la derecha -->
+                            <div class="d-flex justify-content-end">
+                                <a href="{% url 'lista_tareas' %}" class="btn btn-secondary btn-user">
+                                    <i class="fas fa-arrow-left"></i> Volver
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Vincula jQuery -->
+    <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+    <!-- Vincula Bootstrap JS -->
+    <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+    <!-- Vincula el archivo JS de SB Admin 2 -->
+    <script src="{% static 'js/sb-admin-2.min.js' %}"></script>
+</body>
+</html> -->
