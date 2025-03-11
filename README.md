@@ -26,7 +26,11 @@ Seguridad:
 
 * Protección de rutas con @login_required.
 
-* Uso de CSRF tokens en formularios.()
+* Uso de CSRF tokens en formularios.
+  
+**Nota**
+Los CSRF tokens son una medida de seguridad utilizada en aplicaciones web para proteger contra ataques de falsificación de solicitudes entre sitios (CSRF).
+ Estos ataques ocurren cuando un atacante engaña a un usuario para que realice acciones no deseadas en una aplicación web en la que ya está autenticado.
 
 # Tecnologías Utilizadas
 
