@@ -31,7 +31,6 @@
                                     {{ form.password.label_tag }}
                                     {{ form.password|add_class:"form-control form-control-user" }}
                                 </div>
-                                <!-- Contenedor flexible para centrar el botón -->
                                 <div class="d-flex justify-content-center">
                                     <button type="submit" class="btn btn-primary btn-user w-50">
                                         Iniciar sesión
@@ -41,8 +40,8 @@
                             <hr>
                             <div class="text-center">
                                 <a href="{% url 'password_reset' %}" class="small">¿Olvidaste tu contraseña?</a>
-                            <div>
-                             <a class="small" href="{% url 'register' %}">¿No tienes una cuenta? Regístrate</a>
+                            </div>
+                             <a href="{% url 'register' %}" class="small">¿No tienes una cuenta? Regístrate</a>
                             </div>
                             </div>
                         </div>

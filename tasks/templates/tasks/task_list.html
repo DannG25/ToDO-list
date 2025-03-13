@@ -5,17 +5,31 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Tareas</title>
+    <!-- Estilos CSS -->
     <link rel="stylesheet" href="{% static 'css/sb-admin-2.min.css' %}">
     <link rel="stylesheet" href="{% static 'vendor/fontawesome-free/css/all.min.css' %}">
+    <!-- Estilos personalizados para prioridades -->
+    <style>
+        /* Estilos para las prioridades */
+        .priority-sin_prioridad { background-color: #f7f7f7; color: #6c6e6e; }
+        .priority-muy_baja { background-color: #6cbee4; color: #f7f7f7; }
+        .priority-baja { background-color: #54e9a3; color: #555555; }
+        .priority-alta { background-color: #e7a746; color: #6c6e6e; }
+        .priority-muy_alta { background-color: #ebe866; color: #6c6e6e; }
+        .priority-urgente { background-color: #f85d6d; color: #f7f7f7; }
+    </style>
 </head>
 <body>
     <div class="container">
+        <!-- Tarjeta principal -->
         <div class="card shadow mb-4">
+            <!-- Encabezado de la tarjeta -->
             <div class="card-header py-3">
                 <h2 class="m-0 font-weight-bold text-primary">Bienvenido {{ request.user.username }} a To DO List</h2>
             </div>
+            <!-- Cuerpo de la tarjeta -->
             <div class="card-body">
-                <!-- Contenedor flexible para los botones -->
+                <!-- Botones de acción -->
                 <div class="d-flex justify-content-between mb-3">
                     <a href="{% url 'task_create' %}" class="btn btn-primary">
                         <i class="fas fa-plus"></i> Nueva tarea
@@ -29,11 +43,12 @@
                 <h3>Tareas Pendientes</h3>
                 <ul class="list-group">
                     {% for task in tareas_pendientes %}
-                    <li class="list-group-item">
+                    <li class="list-group-item priority-{{ task.priority }}">
                         <strong>{{ task.title }}</strong>
                         <p>{{ task.nota }}</p>
                         <p>Fecha de asignación: {{ task.fecha_asignacion }}</p> 
                         <p>Fecha de vencimiento: {{ task.fecha_vencimiento }}</p>
+                        <p>Prioridad: {{ task.get_priority_display }}</p>
                         {% if task.archivo %}
                         <p>Archivo: 
                             <!-- Enlace para abrir el archivo en una nueva pestaña -->
@@ -46,7 +61,7 @@
                             </a>
                         </p>
                         {% endif %}
-                        <!-- Contenedor flexible para los botones -->
+                        <!-- Botones de acción para la tarea -->
                         <div class="d-flex justify-content-end mt-2">
                             <a href="{% url 'task_update' task.pk %}" class="btn btn-primary btn-sm mr-2">
                                 <i class="fas fa-edit"></i> Editar
@@ -69,11 +84,12 @@
                 <h3 class="mt-5">Tareas Resueltas</h3>
                 <ul class="list-group">
                     {% for task in tareas_resueltas %}
-                    <li class="list-group-item">
+                    <li class="list-group-item priority-{{ task.priority }}">
                         <strong>{{ task.title }}</strong>
                         <p>{{ task.nota }}</p>
                         <p>Fecha de asignación: {{ task.fecha_asignacion }}</p> 
                         <p>Fecha de vencimiento: {{ task.fecha_vencimiento }}</p>
+                        <p>Prioridad: {{ task.get_priority_display }}</p>
                         {% if task.archivo %}
                         <p>Archivo: 
                             <!-- Enlace para abrir el archivo en una nueva pestaña -->
@@ -86,7 +102,7 @@
                             </a>
                         </p>
                         {% endif %}
-                        <!-- Contenedor flexible para los botones -->
+                        <!-- Botones de acción para la tarea -->
                         <div class="d-flex justify-content-end mt-2">
                             <a href="{% url 'task_update' task.pk %}" class="btn btn-primary btn-sm mr-2">
                                 <i class="fas fa-edit"></i> Editar
@@ -102,6 +118,7 @@
         </div>
     </div>
 
+    <!-- Scripts de JavaScript -->
     <script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
     <script src="{% static 'vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
     <script src="{% static 'js/sb-admin-2.min.js' %}"></script>

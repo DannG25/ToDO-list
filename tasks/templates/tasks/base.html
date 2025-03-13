@@ -1,10 +1,9 @@
-{% load static %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}My Project{% endblock %}</title>
+    <title>{% block title %}Mi Proyecto{% endblock %}</title>
     <!-- Incluir CSS de SB Admin 2 -->
     <link href="{% static 'tasks/vendor/fontawesome-free/css/all.min.css' %}" rel="stylesheet" type="text/css">
     <link href="{% static 'tasks/css/sb-admin-2.min.css' %}" rel="stylesheet">
@@ -14,6 +13,25 @@
     <div id="wrapper">
         {% block content %}{% endblock %}
     </div>
+    
+    <!-- Botón circular de perfil -->
+<!-- <div class="dropdown">
+    <button class="btn btn-primary rounded-circle dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        {% if request.user.profile.image %}
+            <img src="{{ request.user.profile.image.url }}" alt="Perfil" class="rounded-circle" width="30" height="30">
+        {% else %}
+            <i class="fas fa-user"></i>
+        {% endif %}
+    </button>
+    <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+        <a class="dropdown-item" href="{% url 'edit_profile' %}">
+            <i class="fas fa-edit"></i> Editar perfil
+        </a>
+        <a class="dropdown-item" href="{% url 'logout' %}">
+            <i class="fas fa-sign-out-alt"></i> Cerrar sesión
+        </a>
+    </div>
+</div> -->
 
     <!-- Incluir JS de SB Admin 2 -->
     <script src="{% static 'tasks/vendor/jquery/jquery.min.js' %}"></script>

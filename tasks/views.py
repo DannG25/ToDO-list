@@ -1,3 +1,5 @@
+# pylint: disable=no-member
+
 # 1. Importaciones estándar de Python
 from smtplib import SMTPException
 
@@ -7,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
+# from .forms import UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
 
@@ -28,6 +31,9 @@ def register(request):
             messages.success(
                 request, '¡Registro exitoso! Por favor inicia sesión.')
             return redirect('login')
+        else:
+            messages.error(
+                request, 'Por favor corrige los errores en el formulario.')
     else:
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
@@ -45,6 +51,7 @@ def user_login(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
+                messages.success(request, f'Bienvenido, {username}!')
                 return redirect('task_list')
         else:
             messages.error(request, 'Usuario o contraseña incorrectos.')
@@ -81,6 +88,9 @@ def task_create(request):
             task.save()
             messages.success(request, 'Tarea creada exitosamente.')
             return redirect('task_list')
+        else:
+            messages.error(
+                request, 'Por favor corrige los errores en el formulario.')
     else:
         form = TaskForm()
     return render(request, 'tasks/task_form.html', {'form': form})
@@ -98,6 +108,9 @@ def task_update(request, pk):
             form.save()
             messages.success(request, 'Tarea actualizada exitosamente.')
             return redirect('task_list')
+        else:
+            messages.error(
+                request, 'Por favor corrige los errores en el formulario.')
     else:
         form = TaskForm(instance=task)
     return render(request, 'tasks/task_update.html', {'form': form})
@@ -134,6 +147,9 @@ def configure_email(request):
             messages.success(
                 request, 'Configuración de correo guardada exitosamente.')
             return redirect('send_email')
+        else:
+            messages.error(
+                request, 'Por favor corrige los errores en el formulario.')
     else:
         form = EmailConfigForm()
     return render(request, 'email_config.html', {'form': form})
@@ -143,14 +159,14 @@ def send_email(request):
     """
     Envía un correo electrónico utilizando la configuración almacenada en la sesión.
     """
-    email_settings = request.session.get(
-        'email_config', None)  # Se usa el nuevo nombre
+    email_settings = request.session.get('email_config', None)
     if not email_settings:
+        messages.error(request, 'Configuración de correo no encontrada.')
         return redirect('configure_email')
 
     try:
         send_mail(
-            subject='Asunto del correo',
+            subject='Restablece tu contraseña ToDo App',
             message='Cuerpo del mensaje.',
             from_email=email_settings['email_host_user'],
             recipient_list=['destinatario@example.com'],
@@ -160,7 +176,6 @@ def send_email(request):
         )
         messages.success(request, 'Correo enviado exitosamente.')
         return render(request, 'email_sent.html')
-
     except SMTPException as e:
         messages.error(request, f'Error al enviar el correo: {str(e)}')
         return render(request, 'email_error.html', {'error': str(e)})
@@ -180,3 +195,25 @@ def check_resolve(request, pk):
     task.save()
     messages.success(request, 'Tarea marcada como resuelta.')
     return redirect('task_list')
+
+
+# @login_required
+# def profile(request):
+#     if request.method == 'POST':
+#         user_form = UserUpdateForm(request.POST, instance=request.user)
+#         profile_form = ProfileUpdateForm(
+#             request.POST, request.FILES, instance=request.user.profile)
+#         if user_form.is_valid() and profile_form.is_valid():
+#             user_form.save()
+#             profile_form.save()
+#             messages.success(request, 'Tu perfil ha sido actualizado.')
+#             return redirect('profile')
+#     else:
+#         user_form = UserUpdateForm(instance=request.user)
+#         profile_form = ProfileUpdateForm(instance=request.user.profile)
+
+#     context = {
+#         'user_form': user_form,
+#         'profile_form': profile_form,
+#     }
+#     return render(request, 'profile.html', context)
