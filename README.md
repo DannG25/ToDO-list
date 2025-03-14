@@ -99,10 +99,6 @@ Formulario de Creación de Tareas
 
 * python manage.py migrate
   
-**Crea un superusuario (opcional):**
-
-* python manage.py createsuperuser
-  
 **Ejecuta el servidor de desarrollo:**
 
 * python manage.py runserver
