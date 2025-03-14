@@ -91,7 +91,6 @@ def task_delete(request, pk):
     return render(request, 'tasks/task_delete.html', {'task': task})
 
 
-
 @login_required
 def check_resolve(request, pk):
     """
