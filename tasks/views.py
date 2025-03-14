@@ -2,16 +2,16 @@
 
 # 1. Importaciones estándar de Python
 from smtplib import SMTPException
+import os
 
 # 2. Importaciones de terceros (Django y otras librerías externas)
 from django.shortcuts import render, get_object_or_404, redirect
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth import login, authenticate
-from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib import messages
-# from .forms import UserUpdateForm, ProfileUpdateForm
 from django.contrib.auth import get_user_model
 from django.core.mail import send_mail
+from django.dispatch import receiver
+from django.db.models.signals import post_delete
 
 # 3. Importaciones locales (tu aplicación)
 from .models import Task
@@ -20,54 +20,16 @@ from .forms import TaskForm, EmailConfigForm
 User = get_user_model()
 
 
-def register(request):
-    """
-    Gestiona el registro de usuarios.
-    """
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            messages.success(
-                request, '¡Registro exitoso! Por favor inicia sesión.')
-            return redirect('login')
-        else:
-            messages.error(
-                request, 'Por favor corrige los errores en el formulario.')
-    else:
-        form = UserCreationForm()
-    return render(request, 'registration/register.html', {'form': form})
-
-
-def user_login(request):
-    """
-    Gestiona el inicio de sesión del usuario.
-    """
-    if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            username = form.cleaned_data.get('username')
-            password = form.cleaned_data.get('password')
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                messages.success(request, f'Bienvenido, {username}!')
-                return redirect('task_list')
-        else:
-            messages.error(request, 'Usuario o contraseña incorrectos.')
-    else:
-        form = AuthenticationForm()
-    return render(request, 'registration/login.html', {'form': form})
-
-
 @login_required
 def task_list(request):
     """
     Muestra una lista de tareas pendientes y resueltas para el usuario actual.
     """
     tasks = Task.objects.filter(user=request.user)
-    tareas_pendientes = tasks.filter(resuelto=False)
-    tareas_resueltas = tasks.filter(resuelto=True)
+    tareas_pendientes = tasks.filter(
+        resuelto=False).order_by('-fecha_asignacion')
+    tareas_resueltas = tasks.filter(
+        resuelto=True).order_by('-fecha_asignacion')
 
     return render(request, 'tasks/task_list.html', {
         'tareas_pendientes': tareas_pendientes,
@@ -129,6 +91,23 @@ def task_delete(request, pk):
     return render(request, 'tasks/task_delete.html', {'task': task})
 
 
+
+@login_required
+def check_resolve(request, pk):
+    """
+    Marca una tarea como resuelta.
+
+    Args:
+        request (HttpRequest): La solicitud HTTP.
+        pk (int): El ID de la tarea que se marcará como resuelta.
+    """
+    task = get_object_or_404(Task, pk=pk, user=request.user)
+    task.resuelto = True  # Marcar la tarea como resuelta
+    task.save()
+    messages.success(request, 'Tarea marcada como resuelta.')
+    return redirect('task_list')
+
+
 def configure_email(request):
     """
     Configura los detalles del servidor de correo y los almacena en la sesión.
@@ -181,39 +160,11 @@ def send_email(request):
         return render(request, 'email_error.html', {'error': str(e)})
 
 
-@login_required
-def check_resolve(request, pk):
+@receiver(post_delete, sender=Task)
+def delete_archivo(sender, instance, **kwargs):
     """
-    Marca una tarea como resuelta.
-
-    Args:
-        request (HttpRequest): La solicitud HTTP.
-        pk (int): El ID de la tarea que se marcará como resuelta.
+    Elimina el archivo asociado cuando se elimina una tarea.
     """
-    task = get_object_or_404(Task, pk=pk, user=request.user)
-    task.resuelto = True  # Marcar la tarea como resuelta
-    task.save()
-    messages.success(request, 'Tarea marcada como resuelta.')
-    return redirect('task_list')
-
-
-# @login_required
-# def profile(request):
-#     if request.method == 'POST':
-#         user_form = UserUpdateForm(request.POST, instance=request.user)
-#         profile_form = ProfileUpdateForm(
-#             request.POST, request.FILES, instance=request.user.profile)
-#         if user_form.is_valid() and profile_form.is_valid():
-#             user_form.save()
-#             profile_form.save()
-#             messages.success(request, 'Tu perfil ha sido actualizado.')
-#             return redirect('profile')
-#     else:
-#         user_form = UserUpdateForm(instance=request.user)
-#         profile_form = ProfileUpdateForm(instance=request.user.profile)
-
-#     context = {
-#         'user_form': user_form,
-#         'profile_form': profile_form,
-#     }
-#     return render(request, 'profile.html', context)
+    if instance.archivo:
+        if os.path.isfile(instance.archivo.path):
+            os.remove(instance.archivo.path)

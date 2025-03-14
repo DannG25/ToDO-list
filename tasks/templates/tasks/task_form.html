@@ -21,7 +21,6 @@
                         <i class="fas fa-arrow-left"></i> Volver
                     </a>
                 </div>
-
                 <form method="post" enctype="multipart/form-data">
                     {% csrf_token %}
                     <!-- Campo: Título -->
@@ -48,6 +47,7 @@
                     <div class="form-group">
                         <label for="{{ form.archivo.id_for_label }}">Archivo</label>
                         {{ form.archivo|add_class:"form-control-file" }}
+                        <small class="form-text text-muted">Tamaño máximo: 100 MB.</small>
                     </div>
                     <!-- Botón de Guardar centrado -->
                     <div class="text-center">

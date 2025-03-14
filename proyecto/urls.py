@@ -18,9 +18,13 @@ from django.contrib import admin
 from django.urls import path, include
 # Importa las vistas de autenticación
 from django.contrib.auth import views as auth_views
+# from tasks import views as view_task
+from .views import register, user_login
 
 urlpatterns = [
     path('logout/', auth_views.LogoutView.as_view(), name='logout'),
     path('admin/', admin.site.urls),
-    path('', include('tasks.urls')),
+    path('register/', register, name='register'),
+    path('', user_login, name='login'),
+    path('tasks/', include('tasks.urls')),
 ]

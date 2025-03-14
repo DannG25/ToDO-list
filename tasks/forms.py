@@ -5,7 +5,7 @@ Este módulo define los formularios utilizados en la aplicación, incluyendo:
 - Formularios para la creación y actualización de tareas (TaskForm).
 - Formularios para la configuración del servidor de correo electrónico (EmailConfigForm).
 - Formularios personalizados de autenticación (EmailAuthenticationForm).
-- Formularios para la creación y actualización de usuarios 
+- Formularios para la creación y actualización de usuarios
 (CustomUserCreationForm, UserEditForm, UserUpdateForm).
 - Formularios para la actualización del perfil de usuario (ProfileUpdateForm).
 """
@@ -13,6 +13,7 @@ Este módulo define los formularios utilizados en la aplicación, incluyendo:
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
+from django.core.exceptions import ValidationError
 from django import forms
 from .models import Task
 # from .models import Profile
@@ -30,6 +31,20 @@ class TaskForm(forms.ModelForm):
             # Usar un input de tipo fecha
             'fecha_vencimiento': forms.DateInput(attrs={'type': 'date'}),
         }
+
+
+def clean_archivo(self):
+    archivo = self.cleaned_data.get('archivo')
+    if archivo:
+        # Limitar el tamaño del archivo a 100MB
+        if archivo.size > 100 * 1024 * 1024:
+            raise ValidationError("El archivo no puede ser mayor a 100MB.")
+        # Validar tipos de archivo permitidos
+        allowed_types = ['application/pdf', 'application/msword',
+                         'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
+        if archivo.content_type not in allowed_types:
+            raise ValidationError("Solo se permiten archivos PDF o DOCX.")
+    return archivo
 
 
 class EmailConfigForm(forms.Form):

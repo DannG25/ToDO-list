@@ -17,10 +17,18 @@
         .priority-alta { background-color: #e7a746; color: #6c6e6e; }
         .priority-muy_alta { background-color: #ebe866; color: #6c6e6e; }
         .priority-urgente { background-color: #f85d6d; color: #f7f7f7; }
+          /* Estilos para el contenedor de tareas */
+          .list-group-item {
+        margin-bottom: 15px;
+        border-radius: 5px; 
+    }
+    .priority-label {
+        font-weight: bold;
+    }
     </style>
 </head>
 <body>
-    <div class="container">
+    <div class="container ">
         <!-- Tarjeta principal -->
         <div class="card shadow mb-4">
             <!-- Encabezado de la tarjeta -->
@@ -48,8 +56,8 @@
                         <p>{{ task.nota }}</p>
                         <p>Fecha de asignación: {{ task.fecha_asignacion }}</p> 
                         <p>Fecha de vencimiento: {{ task.fecha_vencimiento }}</p>
-                        <p>Prioridad: {{ task.get_priority_display }}</p>
-                        {% if task.archivo %}
+                        <p class="priority-label">Prioridad: {{ task.get_priority_display }}</p>
+                        {% if task.archivo and task.archivo.url %}
                         <p>Archivo: 
                             <!-- Enlace para abrir el archivo en una nueva pestaña -->
                             <a href="{{ task.archivo.url }}" target="_blank" class="btn btn-info btn-sm mr-2">
@@ -59,8 +67,11 @@
                             <a href="{{ task.archivo.url }}" download class="btn btn-info btn-sm">
                                 <i class="fas fa-download"></i> Descargar
                             </a>
+                            <small>({{ task.archivo.size|filesizeformat }})</small>
                         </p>
-                        {% endif %}
+                        {% else %}
+                        <p>Archivo no disponible.</p>
+                    {% endif %}
                         <!-- Botones de acción para la tarea -->
                         <div class="d-flex justify-content-end mt-2">
                             <a href="{% url 'task_update' task.pk %}" class="btn btn-primary btn-sm mr-2">
