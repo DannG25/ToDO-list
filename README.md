@@ -67,21 +67,15 @@ Sigue estos pasos para configurar el proyecto en tu entorno local:
 * Python 3.8 o superior.
 * Pip (gestor de paquetes de Python).
   
-# Capturas de Pantalla
-* Página de Inicio de Sesión
-  
-* Login
-
-* Lista de Tareas
-  
-* Task List
-
 Formulario de Creación de Tareas
 
 # Pasos para Instalar
+
 * Clona el repositorio:
-* git clone https://github.com/tu-usuario/tu-repositorio.git
-* cd tu-repositorio
+  
+* git clone https://github.com/tu-usuario/ToDo-List.git
+  
+* cd ToDo-List
   
 **Crea un entorno virtual:**
 
