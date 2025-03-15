@@ -15,7 +15,6 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.forms import AuthenticationForm
 from django import forms
 from .models import Task
-# from .models import Profile
 
 
 class TaskForm(forms.ModelForm):
@@ -27,7 +26,6 @@ class TaskForm(forms.ModelForm):
         model = Task
         fields = ['title', 'nota', 'fecha_vencimiento', 'archivo', 'priority']
         widgets = {
-            # Usar un input de tipo fecha
             'fecha_vencimiento': forms.DateInput(attrs={'type': 'date'}),
         }
 
@@ -63,24 +61,3 @@ class CustomUserCreationForm(UserCreationForm):
     class Meta:
         model = User
         fields = ("username", "email", "password1", "password2")
-
-
-# class UserEditForm(forms.ModelForm):
-#     """
-#     Formulario para editar el nombre de usuario y el correo electrónico de un usuario.
-#     """
-#     class Meta:
-#         model = User
-#         fields = ['username', 'email']
-
-
-# class UserUpdateForm(forms.ModelForm):
-#     class Meta:
-#         model = User
-#         fields = ['username', 'email']
-
-
-# class ProfileUpdateForm(forms.ModelForm):
-#     class Meta:
-#         model = Profile
-#         fields = ['image']
