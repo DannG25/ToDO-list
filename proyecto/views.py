@@ -5,25 +5,19 @@ from django.contrib import messages
 
 
 def register(request):
-    """
-    Gestiona el registro de usuarios.
-    """
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
         if form.is_valid():
             form.save()
             messages.success(
                 request, '¡Registro exitoso! Por favor inicia sesión.')
-            return redirect('login')  # Redirigir al login
+            return redirect('login')
     else:
         form = UserCreationForm()
     return render(request, 'registration/register.html', {'form': form})
 
 
 def user_login(request):
-    """
-    Gestiona el inicio de sesión del usuario.
-    """
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
@@ -38,3 +32,10 @@ def user_login(request):
     else:
         form = AuthenticationForm()
     return render(request, 'registration/login.html', {'form': form})
+
+
+def home(requets):
+    if requets.user:
+        return redirect("task_list")
+    else:
+        return redirect("login")

@@ -16,8 +16,8 @@ Función views
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.conf import settings
-from django.conf.urls.static import static
+# from django.conf import settings
+# from django.conf.urls.static import static
 from django.contrib.auth import views as auth_views
 from django.views.generic import RedirectView
 from . import views
@@ -25,26 +25,38 @@ from . import views
 urlpatterns = [
     # Panel de administración
     path('admin/', admin.site.urls),
+    # Incluye las rutas de tu aplicación
+    path('api/', include('apps.api.urls')),
+
 
     # URLs de autenticación
-    path('register/', views.register, name='register'),  # Registro de usuarios
-    path('login/', views.user_login, name='login'),     # Inicio de sesión
-    path('logout/', auth_views.LogoutView.as_view(),
+    path('users/register/', views.register,
+         name='register'),  # Registro de usuarios
+    path('users/login/', views.user_login, name='login'),  # Inicio de sesión
+    path('users/logout/', auth_views.LogoutView.as_view(next_page='login'),
          name='logout'),  # Cerrar sesión
 
     # URLs para recuperación de contraseña
-    path('password_reset/', auth_views.PasswordResetView.as_view(),
-         name='password_reset'),
-    path('password_reset/done/', auth_views.PasswordResetDoneView.as_view(),
-         name='password_reset_done'),
-    path('reset/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(),
-         name='password_reset_confirm'),
-    path('reset/done/', auth_views.PasswordResetCompleteView.as_view(),
-         name='password_reset_complete'),
+    path('password-reset/', auth_views.PasswordResetView.as_view(
+        template_name='password_reset.html',
+        email_template_name='password_reset_email.html',
+        subject_template_name='password_reset_subject.txt'
+    ), name='password_reset'),
+    path('password-reset/done/', auth_views.PasswordResetDoneView.as_view(
+        template_name='password_reset_done.html'
+    ), name='password_reset_done'),
+    path('password-reset-confirm/<uidb64>/<token>/', auth_views.PasswordResetConfirmView.as_view(
+        template_name='password_reset_confirm.html'
+    ), name='password_reset_confirm'),
+    path('password-reset-complete/', auth_views.PasswordResetCompleteView.as_view(
+        template_name='password_reset_complete.html'
+    ), name='password_reset_complete'),
 
-    # Redirigir la raíz a la página de login
-    path('', RedirectView.as_view(url='login/')),
+    # Página de inicio
+    path('', views.home, name="home"),
 
-    # Incluir las URLs de la aplicación tasks
-    path('tasks/', include('tasks.urls')),
+    # Incluir las URLs de otras aplicaciones
+    path('tasks/', include('apps.tasks.urls')),
+    path('api/v1.0/', include('apps.api.urls')),
+
 ]

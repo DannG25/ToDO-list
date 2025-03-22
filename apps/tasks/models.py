@@ -13,7 +13,7 @@ class Task(models.Model):
         ('urgente', 'Urgente'),
     ]
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=255)
     nota = models.TextField(blank=True, null=True)
     fecha_asignacion = models.DateTimeField(default=timezone.now)
     fecha_vencimiento = models.DateField(
@@ -26,3 +26,17 @@ class Task(models.Model):
 
 def __str__(self):
     return str(self.title)
+
+
+class EmailConfig(models.Model):
+    """
+    Modelo para almacenar la configuración del servidor de correo.
+    """
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    email_host = models.CharField(max_length=255, default="localhost")
+    email_port = models.IntegerField(default=1025)
+    email_use_tls = models.BooleanField(default=False)
+    email_use_ssl = models.BooleanField(default=False)
+    email_host_user = models.CharField(max_length=255, blank=True, null=True)
+    email_host_password = models.CharField(
+        max_length=255, blank=True, null=True)
